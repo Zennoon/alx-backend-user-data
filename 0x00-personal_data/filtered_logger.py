@@ -8,8 +8,11 @@ Contains:
 import logging
 import os
 import re
+import mysql
 from mysql import connector
 from typing import List, Sequence
+
+import mysql.connector
 
 PII_FIELDS = ("phone", "email", "name", "ssn", "password")
 
@@ -53,7 +56,7 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db() -> connector.connection.MySQLConnection:
+def get_db() -> mysql.connector.connection.MySQLConnection:
     """Returns a mysql connector to the database specified"""
     host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
     username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
