@@ -7,11 +7,9 @@ Contains:
 """
 import logging
 import re
-from typing import List
-from datetime import datetime
+from typing import List, Sequence
 
-
-import logging
+PII_FIELDS = ("ip", "email", "phone", "ssn", "password")
 
 
 class RedactingFormatter(logging.Formatter):
@@ -22,7 +20,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields: List[str]):
+    def __init__(self, fields: Sequence[str]):
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
@@ -33,10 +31,20 @@ class RedactingFormatter(logging.Formatter):
                             message, self.SEPARATOR)
 
 
-def filter_datum(fields: List[str], redaction: str,
+def filter_datum(fields: Sequence[str], redaction: str,
                  message: str, separator: str) -> str:
     """Redactes sensitive information from log line"""
     for fld in fields:
         message = re.sub("{}=.*?{}".format(fld, separator),
                          "{}={}{}".format(fld, redaction, separator), message)
     return message
+
+
+def get_logger() -> logging.Logger:
+    """Returns custom logger"""
+    logger = logging.getLogger("user_data")
+    logger.propagate - False
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(RedactingFormatter(PII_FIELDS))
+    logger.addHandler(stream_handler)
+    return logger
