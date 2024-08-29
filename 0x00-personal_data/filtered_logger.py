@@ -9,7 +9,7 @@ import re
 from typing import List
 
 
-def filter_datum(fields: List, redaction: str, message: str, separator: str):
+def filter_datum(fields, redaction, message, separator) -> str:
     """Redactes sensitive information from log line"""
     for field in fields:
         message = re.sub(r"({}=)(.*?){}".format(field, separator),
