@@ -6,7 +6,7 @@ Contains:
     filter_datum - Redactes sensitive information from log line
 """
 import logging
-from os import environ
+import os
 import re
 from typing import List
 
@@ -55,17 +55,20 @@ def get_logger() -> logging.Logger:
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
-    """ Returns a connector to a MySQL database """
-    username = environ.get("PERSONAL_DATA_DB_USERNAME", "root")
-    password = environ.get("PERSONAL_DATA_DB_PASSWORD", "")
-    host = environ.get("PERSONAL_DATA_DB_HOST", "localhost")
-    db_name = environ.get("PERSONAL_DATA_DB_NAME")
-
-    cnx = mysql.connector.connection.MySQLConnection(user=username,
-                                                     password=password,
-                                                     host=host,
-                                                     database=db_name)
-    return cnx
+    """
+    """
+    user = os.getenv('PERSONAL_DATA_DB_USERNAME', "root")
+    passwd = os.getenv('PERSONAL_DATA_DB_PASSWORD', "")
+    host = os.getenv('PERSONAL_DATA_DB_HOST', "localhost")
+    db = os.getenv('PERSONAL_DATA_DB_NAME')
+    conn = mysql.connector.MySQLConnection(
+        user=user,
+        password=passwd,
+        host=host,
+        database=db
+    )
+    conn.connect()
+    return conn
 
 
 def main() -> None:
