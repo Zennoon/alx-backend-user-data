@@ -8,7 +8,7 @@ Contains:
 import logging
 import os
 import re
-from typing import Sequence
+from typing import List
 
 import mysql.connector
 
@@ -23,7 +23,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields: Sequence[str]):
+    def __init__(self, fields: List[str]):
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
@@ -34,7 +34,7 @@ class RedactingFormatter(logging.Formatter):
                             message, self.SEPARATOR)
 
 
-def filter_datum(fields: Sequence[str], redaction: str,
+def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
     """Redactes sensitive information from log line"""
     for fld in fields:
