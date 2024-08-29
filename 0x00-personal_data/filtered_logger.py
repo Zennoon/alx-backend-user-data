@@ -6,7 +6,9 @@ Contains:
     filter_datum - Redactes sensitive information from log line
 """
 import logging
+import os
 import re
+from mysql import connector
 from typing import List, Sequence
 
 PII_FIELDS = ("phone", "email", "name", "ssn", "password")
@@ -49,3 +51,18 @@ def get_logger() -> logging.Logger:
     stream_handler.setFormatter(RedactingFormatter(PII_FIELDS))
     logger.addHandler(stream_handler)
     return logger
+
+def get_db() -> connector.connection.MySQLConnection:
+    """Returns a mysql connector to the database specified"""
+    host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
+    username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
+    pwd = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
+    db = os.getenv("PERSONAL_DATA_DB_NAME")
+
+    conn = connector.connect(
+        host=host,
+        user=username,
+        password=pwd,
+        database=db
+    )
+    return conn
