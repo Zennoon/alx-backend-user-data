@@ -12,7 +12,7 @@ from typing import List
 def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
     """Redactes sensitive information from log line"""
-    for field in fields:
-        message = re.sub("{}=.*?{}".format(field, separator),
-                         "{}={}{}".format(field, redaction, separator), message)
+    for fld in fields:
+        message = re.sub("{}=.*?{}".format(fld, separator),
+                         "{}={}{}".format(fld, redaction, separator), message)
     return message
