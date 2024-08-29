@@ -13,6 +13,6 @@ def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
     """Redactes sensitive information from log line"""
     for field in fields:
-        message = re.sub(field+"=.*?{}".format(separator),
-                         field+"={}{}".format(redaction, separator), message)
+        message = re.sub("{}=.*?{}".format(field, separator),
+                         "{}={}{}".format(field, redaction, separator), message)
     return message
