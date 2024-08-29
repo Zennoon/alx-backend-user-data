@@ -8,8 +8,7 @@ Contains:
 import logging
 import os
 import re
-import mysql
-from typing import List, Sequence
+from typing import Sequence
 
 import mysql.connector
 
