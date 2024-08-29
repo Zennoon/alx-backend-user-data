@@ -9,7 +9,6 @@ import logging
 import os
 import re
 import mysql
-from mysql import connector
 from typing import List, Sequence
 
 import mysql.connector
@@ -63,7 +62,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     pwd = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
     db = os.getenv("PERSONAL_DATA_DB_NAME")
 
-    conn = connector.connect(
+    conn = mysql.connector.connect(
         host=host,
         user=username,
         password=pwd,
