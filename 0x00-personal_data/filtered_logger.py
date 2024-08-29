@@ -11,6 +11,7 @@ import re
 from typing import List
 
 import mysql.connector
+import _mysql_connector
 
 PII_FIELDS = ("phone", "email", "name", "ssn", "password")
 
@@ -64,7 +65,15 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     host = os.getenv('PERSONAL_DATA_DB_HOST', "localhost")
     db = os.getenv('PERSONAL_DATA_DB_NAME')
     port = os.getenv("PERSONAL_DATA_DB_PORT", 3306)
-    conn = mysql.connector.MySQLConnection(
+    # conn = mysql.connector.MySQLConnection(
+    #     user=user,
+    #     password=passwd,
+    #     host=host,
+    #     database=db,
+    #     port=port
+    # )
+    conn = _mysql_connector.MySQL()
+    conn.connect(
         user=user,
         password=passwd,
         host=host,
