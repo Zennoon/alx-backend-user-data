@@ -68,3 +68,22 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         database=db_name
     )
     return conn
+
+
+def main() -> None:
+    """Main function"""
+    conn = get_db()
+    logger = get_logger()
+    cursor = conn.cursor()
+    fields = ["name", "email", "phone", "ssn", "password", "ip", "last_login", "user_agent"]
+    cursor.execute('SELECT * FROM users;')
+    for row in cursor:
+        zipped = zip(fields, list(row))
+        message = " ".join(["{}={};".format(field, value) for field, value in zipped])
+        logger.info(message)
+    cursor.close()
+    conn.close()
+
+
+if __name__ == "__main__":
+    main()
