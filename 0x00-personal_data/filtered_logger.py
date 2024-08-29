@@ -75,11 +75,10 @@ def main() -> None:
     conn = get_db()
     logger = get_logger()
     cursor = conn.cursor()
-    fields = ["name", "email", "phone", "ssn", "password",
-              "ip", "last_login", "user_agent"]
     cursor.execute('SELECT * FROM users;')
+    columns = cursor.column_names
     for row in cursor:
-        zipped = zip(fields, list(row))
+        zipped = zip(columns, list(row))
         message = " ".join(
             ["{}={};".format(field, value) for field, value in zipped]
         )
