@@ -9,4 +9,5 @@ import bcrypt
 
 
 def hash_password(password: str) -> bytes:
+    """Generates a salted hash for the given password"""
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
