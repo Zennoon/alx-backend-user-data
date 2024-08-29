@@ -52,6 +52,7 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
     return logger
 
+
 def get_db() -> connector.connection.MySQLConnection:
     """Returns a mysql connector to the database specified"""
     host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
