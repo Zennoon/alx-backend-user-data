@@ -31,4 +31,4 @@ def test_unauthorized():
     Return:
       - A 401 error
     """
-    return abort(401)
+    abort(401)
