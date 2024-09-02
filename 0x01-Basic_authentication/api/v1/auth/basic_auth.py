@@ -31,3 +31,12 @@ class BasicAuth(Auth):
                 return None
             return b64_decoded.decode("utf-8")
         return None
+
+    def extract_user_credentials(self,
+                                 decoded_b64_auth_header: str) -> (str, str):
+        if (decoded_b64_auth_header
+                and isinstance(decoded_b64_auth_header, str)):
+            if ":" in decoded_b64_auth_header:
+                email, password = decoded_b64_auth_header.split(":")
+                return (email, password)
+        return (None, None)
