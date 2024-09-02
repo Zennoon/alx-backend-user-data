@@ -7,8 +7,10 @@ Contains:
     basic authentication
 """
 import base64
+import hashlib
 from api.v1.auth.auth import Auth
-from typing import Tuple
+from models.user import User
+from typing import Tuple, TypeVar
 
 
 class BasicAuth(Auth):
@@ -42,3 +44,24 @@ class BasicAuth(Auth):
                 email, password = decoded_b64_auth_hdr.split(":")
                 return (email, password)
         return (None, None)
+
+    def user_object_from_credentials(self,
+                                     user_email: str,
+                                     user_pwd: str) -> TypeVar('User'):
+        """Retrieves a User object from the given email and password"""
+        if (user_email and isinstance(user_email, str)
+                and user_pwd and isinstance(user_pwd, str)):
+            try:
+                users = User.search({
+                    "email": user_email
+                })
+            except Exception:
+                return None
+            if users:
+                user = users[0]
+                hashed_pwd = hashlib.sha256(
+                    user_pwd.encode()
+                ).hexdigest().lower()
+                if user.password == hashed_pwd:
+                    return user
+        return None
