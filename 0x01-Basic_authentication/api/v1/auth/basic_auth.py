@@ -8,6 +8,7 @@ Contains:
 """
 import base64
 from api.v1.auth.auth import Auth
+from typing import Tuple
 
 
 class BasicAuth(Auth):
@@ -33,7 +34,8 @@ class BasicAuth(Auth):
         return None
 
     def extract_user_credentials(self,
-                                 decoded_b64_auth_header: str) -> (str, str):
+                                 decoded_b64_auth_header: str) -> Tuple[str, str]:
+        """Extract user credentials from decoded Authorization header"""
         if (decoded_b64_auth_header
                 and isinstance(decoded_b64_auth_header, str)):
             if ":" in decoded_b64_auth_header:
