@@ -65,3 +65,13 @@ class BasicAuth(Auth):
                 if user.password == hashed_pwd:
                     return user
         return None
+    
+    def current_user(self, request=None) -> TypeVar("User"):
+        """Returns the current user (who issued the request)"""
+        auth_header = self.authorization_header(request)
+        b64_encoded = self.extract_base64_authorization_header(auth_header)
+        b64_decoded = self.decode_base64_authorization_header(b64_encoded)
+        print(b64_decoded)
+        user_email, user_pwd = self.extract_user_credentials(b64_decoded)
+        user = self.user_object_from_credentials(user_email, user_pwd)
+        return user
