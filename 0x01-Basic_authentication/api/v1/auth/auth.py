@@ -13,7 +13,10 @@ class Auth:
     """Basic authentication"""
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """Require authentication"""
-        return False
+        return (not path
+                or not excluded_paths
+                or (path if path.endswith("/") else path + "/")
+                not in excluded_paths)
 
     def authorization_header(self, request=None) -> str:
         """Authorization header"""
