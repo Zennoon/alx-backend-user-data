@@ -34,11 +34,11 @@ class BasicAuth(Auth):
         return None
 
     def extract_user_credentials(self,
-                                 decoded_b64_auth_header: str) -> Tuple[str, str]:
+                                 decoded_b64_auth_hdr: str) -> Tuple[str, str]:
         """Extract user credentials from decoded Authorization header"""
-        if (decoded_b64_auth_header
-                and isinstance(decoded_b64_auth_header, str)):
-            if ":" in decoded_b64_auth_header:
-                email, password = decoded_b64_auth_header.split(":")
+        if (decoded_b64_auth_hdr
+                and isinstance(decoded_b64_auth_hdr, str)):
+            if ":" in decoded_b64_auth_hdr:
+                email, password = decoded_b64_auth_hdr.split(":")
                 return (email, password)
         return (None, None)
