@@ -11,8 +11,7 @@ from api.v1.auth.auth import Auth
 
 class BasicAuth(Auth):
     """Implements Basic Authentication"""
-    def extract_base64_authorization_header(self,
-                                            authorization_header: str) -> str:
+    def extract_base64_authorization_header(self, authorization_header: str) -> str:
         """Extracts the encoded part of the 'Authorization' header
         value"""
         if authorization_header and isinstance(authorization_header, str):
