@@ -10,7 +10,7 @@ from typing import List, TypeVar
 
 
 class Auth:
-    """Basic authentication"""
+    """Template for authentication classes"""
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """Require authentication"""
         return (not path
@@ -29,3 +29,8 @@ class Auth:
     def current_user(self, request=None) -> TypeVar('User'):
         """Current user"""
         return None
+
+
+class BasicAuth(Auth):
+    """Implements Basic Authentication"""
+    pass
