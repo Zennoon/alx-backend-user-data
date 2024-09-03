@@ -15,8 +15,13 @@ class Auth:
         """Require authentication"""
         return (not path
                 or not excluded_paths
-                or (path if path.endswith("/") else path + "/")
-                not in excluded_paths)
+                or (((path if path.endswith("/") else path + "/")
+                    not in excluded_paths)
+                    and True not in [
+                        ex_path.endswith("*") and path.startswith(ex_path[:-1])
+                        for ex_path in excluded_paths
+                    ])
+                )
 
     def authorization_header(self, request=None) -> str:
         """Authorization header"""
