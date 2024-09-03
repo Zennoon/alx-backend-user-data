@@ -75,6 +75,3 @@ class BasicAuth(Auth):
         user_email, user_pwd = self.extract_user_credentials(b64_decoded)
         user = self.user_object_from_credentials(user_email, user_pwd)
         return user
-
-user_email = "bob100@hbtn.io"
-user_clear_pwd = "H0lberton:School:98!"
