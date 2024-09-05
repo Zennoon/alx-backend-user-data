@@ -5,6 +5,7 @@ Contains:
     =======
     Auth - An authentication class
 """
+import os
 from flask import request
 from typing import List, TypeVar
 
@@ -29,6 +30,13 @@ class Auth:
             auth_header = request.headers.get("Authorization")
             if auth_header:
                 return auth_header
+        return None
+    
+    def session_cookie(self, request=None):
+        """Get the _my_session_id cookie from given request"""
+        if request:
+            cookie_name = os.getenv("SESSION_NAME", "_my_session_id")
+            return request.cookies.get(cookie_name)
         return None
 
     def current_user(self, request=None) -> TypeVar('User'):
