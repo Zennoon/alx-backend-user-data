@@ -1,4 +1,5 @@
 .mypy_cache
 __pycache__
+.db_User.json
 user_data.csv
 main.*
