@@ -21,7 +21,7 @@ def auth_session_login():
         attrs[idx] = request.form.get(attrs[idx])
     email, password = attrs
     users = User.search({"email": email})
-    if users is None:
+    if not users:
         return jsonify({
             "error": "no user found for this email"
         }), 404
