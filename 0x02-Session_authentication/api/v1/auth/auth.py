@@ -31,7 +31,7 @@ class Auth:
             if auth_header:
                 return auth_header
         return None
-    
+
     def session_cookie(self, request=None):
         """Get the _my_session_id cookie from given request"""
         if request:
