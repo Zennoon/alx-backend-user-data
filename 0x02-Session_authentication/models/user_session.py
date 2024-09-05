@@ -5,7 +5,7 @@ from models.base import Base
 
 
 class UserSession(Base):
-    """User sessions"""
+    """User sessions stored in database"""
     def __init__(self, *args: list, **kwargs: dict):
         """Initializes the instance"""
         super().__init__(*args, **kwargs)
