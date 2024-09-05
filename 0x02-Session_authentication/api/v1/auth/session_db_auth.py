@@ -31,22 +31,19 @@ class SessionDBAuth(SessionExpAuth):
             except Exception:
                 return None
             if sessions:
-                return sessions[0].user_id
+                return (sessions[0].user_id)
         return None
 
     def destroy_session(self, request=None):
         """Removes a session from the database"""
-        if request:
+        if super().destroy_session(request):
             session_id = self.session_cookie(request)
             if session_id:
-                user_id = self.user_id_for_session_id(session_id)
-                if user_id:
-                    try:
-                        sessions = UserSession.search({"session_id": session_id})
-                    except Exception:
-                        return False
-                    if sessions:
-                        sessions[0].remove()
-                        return True
+                try:
+                    sessions = UserSession.search({"session_id": session_id})
+                except Exception:
+                    return False
+                if sessions:
+                    sessions[0].remove()
+                    return True
         return False
-
