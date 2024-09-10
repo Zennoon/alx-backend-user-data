@@ -12,10 +12,10 @@ from sqlalchemy import (
 )
 from sqlalchemy.ext.declarative import declarative_base
 
-base = declarative_base()
+Base = declarative_base()
 
 
-class User(base):
+class User(Base):
     """Mapping model to the users table of the connected database"""
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
