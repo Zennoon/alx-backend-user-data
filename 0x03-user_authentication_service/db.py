@@ -41,7 +41,7 @@ class DB:
         session.commit()
         return user
 
-    def find_user_by(self, *args: List, **kwargs: Dict) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """
         Filters users by given keyword args and returns result
         if found, else raise an exception
