@@ -4,3 +4,4 @@ __pycache__
 .db_*
 user_data.csv
 main.*
+*.db
