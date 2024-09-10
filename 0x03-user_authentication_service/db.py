@@ -29,8 +29,8 @@ class DB:
             DBSession = sessionmaker(bind=self._engine)
             self.__session = DBSession()
         return self.__session
-    
-    def add_user(self, email: str, hashed_password:str) -> User:
+
+    def add_user(self, email: str, hashed_password: str) -> User:
         """Creates and adds a new user to the database"""
         user = User()
         session = self._session
@@ -39,4 +39,3 @@ class DB:
         session.add(user)
         session.commit()
         return user
-    
