@@ -24,7 +24,7 @@ class Auth:
         """Initialize a new instance"""
         self._db = DB()
 
-    def register_user(self, email: str, password: str) -> User  :
+    def register_user(self, email: str, password: str) -> User:
         """
         Registers a new user into the database after configurations
         and checks are performed
