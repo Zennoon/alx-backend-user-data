@@ -43,16 +43,11 @@ class DB:
         return user
 
     def find_user_by(self, *args, **kwargs):
-        """Filters users by given keyword args and returns result
-        if found, else raise an exception"""
+        """
+        Filters users by given keyword args and returns result
+        if found, else raise an exception
+        """
         users = self._session.query(User)
-        try:
-            for key, val in kwargs.items():
-                users = users.filter(User.__dict__.get(key) == val)
-            users = users.all()
-        except InvalidRequestError:
-            raise InvalidRequestError
-        try:
-            return users[0]
-        except IndexError:
-            raise NoResultFound
+        for key, val in kwargs.items():
+            users = users.filter(User.__dict__.get(key) == val)
+        return users.one()
