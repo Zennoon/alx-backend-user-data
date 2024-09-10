@@ -48,3 +48,17 @@ class DB:
         """
         users = self._session.query(User)
         return users.filter_by(**kwargs).one()
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """
+        Update user of given user id with the attribute name
+        and values found in kwargs
+        """
+        user = self.find_user_by(id=user_id)
+        for key, val in kwargs.items():
+            if hasattr(user, key):
+                setattr(user, key, val)
+            else:
+                raise ValueError
+        self._session.add(user)
+        self._session.commit()
