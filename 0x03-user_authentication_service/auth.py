@@ -9,6 +9,7 @@ Contains:
 import bcrypt
 import uuid
 from sqlalchemy.orm.exc import NoResultFound
+from typing import Union
 
 from db import DB
 from user import User
@@ -60,7 +61,7 @@ class Auth:
         self._db.update_user(user.id, session_id=_generate_uuid())
         return user.session_id
 
-    def get_user_by_session_id(self, session_id: str) -> User:
+    def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
         """Returns the user associated with a session id"""
         try:
             user = self._db.find_user_by(session_id=session_id)
