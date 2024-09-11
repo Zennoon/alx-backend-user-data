@@ -18,10 +18,11 @@ def _hash_password(password: str) -> bytes:
 
 
 class Auth:
-    """Auth class to interact with the authentication database.
+    """
+    Auth class to interact with the authentication database.
     """
     def __init__(self):
-        """Initialize a new instance"""
+        """Initialize a new instance of the Auth class"""
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
