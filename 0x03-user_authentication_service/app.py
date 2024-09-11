@@ -18,6 +18,7 @@ def index():
     """Handles GET requests to the root (/) route"""
     return jsonify({"message": "Bienvenue"})
 
+
 @app.route("/users", methods=["POST"])
 def users():
     """Handles POST requests the the /users route"""
