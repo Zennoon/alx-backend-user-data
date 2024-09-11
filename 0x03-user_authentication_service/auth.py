@@ -16,10 +16,12 @@ from user import User
 
 
 def _hash_password(password: str) -> bytes:
+    """Hashes given password using bcrypt"""
     return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 
 
 def _generate_uuid() -> str:
+    """Generates a unique id using uuid"""
     return str(uuid.uuid4())
 
 
